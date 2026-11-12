@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-900 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif Informatika SMK - Kelas 10</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Anti-select style during exam */
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans antialiased overflow-x-hidden selection:bg-blue-500 selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-blue-600 rounded-lg text-white shadow-lg shadow-blue-500/30">
+                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-white tracking-wide">InfoEduX <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30 font-normal">SMK Class 10</span></h1>
+                    <p class="text-xs text-slate-400">Media Pembelajaran Informatika Interaktif</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="hidden md:flex space-x-1 bg-slate-900/60 p-1 rounded-xl border border-slate-700/60">
+                <button onclick="switchTab('materi')" id="nav-materi" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg transition-all text-white bg-blue-600 shadow">
+                    <i data-lucide="book-open" class="w-4 h-4 inline mr-1.5"></i> Materi & Simulasi
+                </button>
+                <button onclick="switchTab('quiz-intro')" id="nav-quiz" class="nav-btn px-4 py-2 text-sm font-medium rounded-lg transition-all text-slate-400 hover:text-slate-200">
+                    <i data-lucide="file-check-2" class="w-4 h-4 inline mr-1.5"></i> Uji Kompetensi (25 Soal)
+                </button>
+            </nav>
+
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span class="w-2 h-2 mr-1.5 bg-emerald-400 rounded-full animate-pulse"></span> Mode Interaktif
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- TAB 1: MATERI DAN SIMULASI INTERAKTIF -->
+        <section id="tab-materi" class="space-y-8">
+            <!-- Header Banner -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-900/50 via-slate-800 to-slate-900 border border-slate-700 p-6 sm:p-8">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Kurikulum Merdeka SMK</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-3">Berpikir Komputasional & Sistem Komputer</h2>
+                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
+                        Pelajari konsep struktur data mendasar, perancangan algoritma pseudocode, hingga simulasi arsitektur mesin Von Neumann dan prinsip kerja Sistem Operasi.
+                    </p>
+                </div>
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-blue-400 pointer-events-none">
+                    <i data-lucide="code-2" class="w-72 h-72"></i>
+                </div>
+            </div>
+
+            <!-- Topic Selector Navigation -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <button onclick="showTopic('sd')" id="btn-topic-sd" class="topic-btn p-4 rounded-xl border border-blue-500 bg-blue-500/10 text-left transition hover:border-blue-400">
+                    <div class="p-2 bg-blue-500/20 text-blue-400 w-fit rounded-lg mb-2"><i data-lucide="layers" class="w-5 h-5"></i></div>
+                    <div class="font-semibold text-white text-sm">1. Struktur Data</div>
+                    <div class="text-xs text-slate-400 mt-1">Array, List, Stack, Queue</div>
+                </button>
+                <button onclick="showTopic('algo')" id="btn-topic-algo" class="topic-btn p-4 rounded-xl border border-slate-700 bg-slate-800/50 text-left transition hover:border-slate-600">
+                    <div class="p-2 bg-emerald-500/20 text-emerald-400 w-fit rounded-lg mb-2"><i data-lucide="git-merge" class="w-5 h-5"></i></div>
+                    <div class="font-semibold text-white text-sm">2. Algoritma & Pseudocode</div>
+                    <div class="text-xs text-slate-400 mt-1">Sorting, Search, Notation</div>
+                </button>
+                <button onclick="showTopic('vn')" id="btn-topic-vn" class="topic-btn p-4 rounded-xl border border-slate-700 bg-slate-800/50 text-left transition hover:border-slate-600">
+                    <div class="p-2 bg-purple-500/20 text-purple-400 w-fit rounded-lg mb-2"><i data-lucide="cpu" class="w-5 h-5"></i></div>
+                    <div class="font-semibold text-white text-sm">3. Arsitektur Von Neumann</div>
+                    <div class="text-xs text-slate-400 mt-1">CPU, Memory, F-D-E Cycle</div>
+                </button>
+                <button onclick="showTopic('os')" id="btn-topic-os" class="topic-btn p-4 rounded-xl border border-slate-700 bg-slate-800/50 text-left transition hover:border-slate-600">
+                    <div class="p-2 bg-amber-500/20 text-amber-400 w-fit rounded-lg mb-2"><i data-lucide="terminal" class="w-5 h-5"></i></div>
+                    <div class="font-semibold text-white text-sm">4. Sistem Operasi</div>
+                    <div class="text-xs text-slate-400 mt-1">Manajemen Proses & RAM</div>
+                </button>
+            </div>
+
+            <!-- TOPIC CONTENT 1: STRUKTUR DATA -->
+            <div id="content-sd" class="topic-content space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Text Material -->
+                    <div class="lg:col-span-1 bg-slate-800 border border-slate-700 rounded-2xl p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="layers" class="text-blue-400"></i> Memahami Struktur Data
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Struktur data adalah cara menyimpan, mengorganisasi, dan mengatur data di dalam memori komputer agar dapat diakses dan dimanipulasi secara efisien.
+                        </p>
+                        <div class="space-y-3 text-xs text-slate-300">
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700/60">
+                                <strong class="text-blue-400 block mb-1">1. Array (Larik)</strong>
+                                Kumpulan elemen bertipe sama yang disimpan secara berurutan di memori dengan indeks linier (dimulai dari 0).
+                            </div>
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700/60">
+                                <strong class="text-emerald-400 block mb-1">2. List (Daftar Terhubung)</strong>
+                                Elemen data dinamis tempat setiap elemen menyimpan nilai dan acuan (pointer) ke elemen berikutnya.
+                            </div>
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700/60">
+                                <strong class="text-purple-400 block mb-1">3. Stack (Tumpukan - LIFO)</strong>
+                                Prinsip <em>Last In First Out</em> (Yang terakhir masuk, pertama keluar). Contoh: Fitur Undo/Redo & Tumpukan piring.
+                            </div>
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700/60">
+                                <strong class="text-amber-400 block mb-1">4. Queue (Antrean - FIFO)</strong>
+                                Prinsip <em>First In First Out</em> (Yang pertama masuk, pertama keluar). Contoh: Antrean loket tiket, antrean cetak printer.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Simulator -->
+                    <div class="lg:col-span-2 bg-slate-800 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between pb-4 border-b border-slate-700">
+                                <h4 class="font-bold text-white text-lg">Simulator Visual: Stack vs Queue</h4>
+                                <div class="flex space-x-2">
+                                    <button onclick="setSimMode('stack')" id="mode-stack" class="px-3 py-1 text-xs rounded-lg bg-blue-600 text-white font-semibold">Stack (LIFO)</button>
+                                    <button onclick="setSimMode('queue')" id="mode-queue" class="px-3 py-1 text-xs rounded-lg bg-slate-700 text-slate-300 font-semibold hover:bg-slate-600">Queue (FIFO)</button>
+                                </div>
+                            </div>
+
+                            <!-- Input Controls -->
+                            <div class="mt-4 flex gap-2">
+                                <input type="text" id="sim-input" placeholder="Masukkan nilai (contoh: A, 42)" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500 flex-1">
+                                <button onclick="pushSimData()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-1">
+                                    <i data-lucide="plus-circle" class="w-4 h-4"></i> Masukkan (Push/Enqueue)
+                                </button>
+                                <button onclick="popSimData()" class="bg-rose-600 hover:bg-rose-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-1">
+                                    <i data-lucide="minus-circle" class="w-4 h-4"></i> Keluarkan (Pop/Dequeue)
+                                </button>
+                            </div>
+
+                            <!-- Visual Display Box -->
+                            <div class="mt-6 bg-slate-900/90 rounded-xl p-6 min-h-[220px] border border-slate-700/80 flex items-center justify-center relative overflow-hidden">
+                                <div id="sim-container" class="flex items-end gap-2 max-w-full overflow-x-auto p-4">
+                                    <!-- Dynamic items rendered here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Banner -->
+                        <div id="sim-info" class="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl text-xs text-blue-300 flex items-center gap-2">
+                            <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
+                            <span>Elemen baru ditambahkan ke **Top/Atas** pada Stack, dan diambil dari **Top/Atas**.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOPIC CONTENT 2: ALGORITMA & PSEUDOCODE -->
+            <div id="content-algo" class="topic-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Pseudocode Guide -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 space-y-4">
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="code" class="text-emerald-400"></i> Penulisan Pseudocode
+                        </h3>
+                        <p class="text-sm text-slate-300">
+                            <strong>Pseudocode</strong> adalah deskripsi tingkat tinggi dari algoritma pemrograman komputer yang menggunakan konvensi struktural dari bahasa pemrogram formal, namun ditujukan agar mudah dibaca oleh manusia.
+                        </p>
+                        <div class="bg-slate-900 border border-slate-700/80 rounded-xl p-4 font-mono text-xs text-emerald-300 space-y-1">
+                            <div class="text-slate-500">// Contoh Pseudocode: Menentukan Lulus / Tidak</div>
+                            <div>ALGORITMA CekKelulusan</div>
+                            <div>DEKLARASI:</div>
+                            <div class="pl-4">nilai : INTEGER</div>
+                            <div>ALGORITMA:</div>
+                            <div class="pl-4">READ nilai</div>
+                            <div class="pl-4">IF nilai >= 75 THEN</div>
+                            <div class="pl-8 text-amber-300">PRINT "LULUS"</div>
+                            <div class="pl-4">ELSE</div>
+                            <div class="pl-8 text-rose-300">PRINT "REMEDIAL"</div>
+                            <div class="pl-4">ENDIF</div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Sorting Visualizer -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-white text-lg flex items-center gap-2">
+                                <i data-lucide="arrow-up-narrow-wide" class="text-emerald-400"></i> Visualisasi Algoritma Bubble Sort
+                            </h4>
+                            <p class="text-xs text-slate-400 mt-1">Bubble Sort membandingkan elemen berpasangan dan menukarnya jika urutannya salah.</p>
+                            
+                            <div id="sort-bars" class="mt-6 bg-slate-900 rounded-xl p-6 h-48 flex items-end justify-center gap-3 border border-slate-700">
+                                <!-- Bars created via JS -->
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex items-center justify-between">
+                            <button onclick="generateRandomArray()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-semibold">Acak Angka</button>
+                            <button onclick="runBubbleSort()" id="btn-run-sort" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold shadow-lg shadow-emerald-600/30">Jalankan Sorting</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOPIC CONTENT 3: VON NEUMANN -->
+            <div id="content-vn" class="topic-content hidden space-y-6">
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6">
+                    <h3 class="text-xl font-bold text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="cpu" class="text-purple-400"></i> Model Arsitektur Komputer Von Neumann
+                    </h3>
+                    <p class="text-sm text-slate-300 mb-6">
+                        Arsitektur Von Neumann terdiri dari 4 komponen utama: **CPU (ALU & CU)**, **Memori Utama (RAM)**, **Perangkat Input/Output**, dan **Bus Data/Instruksi**. Proses jalannya instruksi mengikuti siklus: **Fetch (Ambil) → Decode (Terjemahkan) → Execute (Jalankan)**.
+                    </p>
+
+                    <!-- Interactive Von Neumann Diagram -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-900 p-6 rounded-xl border border-slate-700 text-center relative">
+                        <!-- Input/Output -->
+                        <div class="border border-slate-700 bg-slate-800/80 p-4 rounded-xl flex flex-col justify-center items-center">
+                            <i data-lucide="hard-drive" class="w-8 h-8 text-amber-400 mb-2"></i>
+                            <h5 class="font-bold text-white text-sm">Input / Output (I/O)</h5>
+                            <p class="text-xs text-slate-400 mt-1">Keyboard, Mouse, Monitor, Storage</p>
+                        </div>
+
+                        <!-- CPU -->
+                        <div id="cpu-box" class="border-2 border-purple-500 bg-purple-950/20 p-4 rounded-xl space-y-3 transition-all">
+                            <h5 class="font-bold text-purple-300 text-sm flex items-center justify-center gap-1">
+                                <i data-lucide="cpu" class="w-4 h-4"></i> Central Processing Unit (CPU)
+                            </h5>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <div id="unit-cu" class="p-2 bg-slate-800 border border-slate-700 rounded text-slate-300">
+                                    <strong>Control Unit (CU)</strong><br><span class="text-[10px] text-slate-400">Pengatur Instruksi</span>
+                                </div>
+                                <div id="unit-alu" class="p-2 bg-slate-800 border border-slate-700 rounded text-slate-300">
+                                    <strong>ALU</strong><br><span class="text-[10px] text-slate-400">Perhitungan Matematika</span>
+                                </div>
+                            </div>
+                            <div id="unit-reg" class="p-2 bg-slate-800 border border-slate-700 rounded text-slate-300 text-xs">
+                                <strong>Registers (PC, MAR, MDR, ACC)</strong>
+                            </div>
+                        </div>
+
+                        <!-- RAM -->
+                        <div id="ram-box" class="border border-slate-700 bg-slate-800/80 p-4 rounded-xl flex flex-col justify-center items-center">
+                            <i data-lucide="microchip" class="w-8 h-8 text-blue-400 mb-2"></i>
+                            <h5 class="font-bold text-white text-sm">Memori Utama (RAM)</h5>
+                            <p class="text-xs text-slate-400 mt-1">Menyimpan Program & Data sementara</p>
+                        </div>
+                    </div>
+
+                    <!-- Cycle Control -->
+                    <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                        <div id="fde-status" class="text-sm text-slate-200">
+                            Status Siklus: <span class="font-mono text-purple-400 font-bold">Siap (Idle)</span>
+                        </div>
+                        <button onclick="nextFdeStep()" class="w-full sm:w-auto px-5 py-2.5 bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs rounded-lg shadow-lg shadow-purple-600/30 transition flex items-center justify-center gap-2">
+                            <i data-lucide="play" class="w-4 h-4"></i> Simulasikan Langkah Siklus F-D-E
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOPIC CONTENT 4: SISTEM OPERASI -->
+            <div id="content-os" class="topic-content hidden space-y-6">
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i data-lucide="terminal" class="text-amber-400"></i> Peran & Fungsi Sistem Operasi (OS)
+                    </h3>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Sistem Operasi (seperti Windows, Linux, Android) adalah perangkat lunak sistem yang mengelola sumber daya perangkat keras (*hardware*) dan perangkat lunak (*software*) serta menyediakan layanan umum untuk program komputer.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                        <div class="p-4 bg-slate-900 border border-slate-700 rounded-xl space-y-2">
+                            <i data-lucide="cpu" class="text-amber-400 w-6 h-6"></i>
+                            <h4 class="font-bold text-white text-sm">Manajemen Proses</h4>
+                            <p class="text-xs text-slate-400">Mengatur eksekusi program melalui penjadwalan CPU (CPU Scheduling) dan alokasi status proses (Ready, Running, Blocked).</p>
+                        </div>
+                        <div class="p-4 bg-slate-900 border border-slate-700 rounded-xl space-y-2">
+                            <i data-lucide="database" class="text-blue-400 w-6 h-6"></i>
+                            <h4 class="font-bold text-white text-sm">Manajemen Memori</h4>
+                            <p class="text-xs text-slate-400">Layanan pengalokasian lokasi ruang alamat RAM untuk aplikasi agar tidak saling bertabrakan (Paging / Virtual Memory).</p>
+                        </div>
+                        <div class="p-4 bg-slate-900 border border-slate-700 rounded-xl space-y-2">
+                            <i data-lucide="folder-tree" class="text-emerald-400 w-6 h-6"></i>
+                            <h4 class="font-bold text-white text-sm">Manajemen Berkas & I/O</h4>
+                            <p class="text-xs text-slate-400">Mengatur struktur direktori, sistem berkas (NTFS, ext4), serta driver perangkat keras pembaca/penulis data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TAB 2: UJI KOMPETENSI INTRO -->
+        <section id="tab-quiz-intro" class="hidden max-w-2xl mx-auto space-y-6 py-8">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 sm:p-8 text-center space-y-6 shadow-2xl">
+                <div class="w-16 h-16 bg-blue-600/20 text-blue-400 rounded-full flex items-center justify-center mx-auto border border-blue-500/30">
+                    <i data-lucide="shield-alert" class="w-8 h-8"></i>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Uji Kompetensi Informatika Kelas 10</h2>
+                    <p class="text-slate-400 text-sm mt-1">Topik: Struktur Data, Algoritma, Von Neumann & Sistem Operasi</p>
+                </div>
+
+                <!-- Exam Rules Card -->
+                <div class="bg-slate-900/80 border border-slate-700 rounded-xl p-5 text-left text-xs space-y-3">
+                    <h4 class="font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <i data-lucide="alert-triangle" class="w-4 h-4"></i> Ketentuan & Fitur Anti-Nyontek:
+                    </h4>
+                    <ul class="list-disc pl-4 text-slate-300 space-y-1.5 leading-relaxed">
+                        <li>Jumlah Soal: <strong>25 Butir Pilihan Ganda (Opsi A, B, C, D, E)</strong>.</li>
+                        <li>Sistem mendeteksi <strong>Perpindahan Tab / Membuka Aplikasi Lain</strong>. Percobaan berpindah akan tercatat sebagai pelanggaran!</li>
+                        <li>Fitur <strong>Copy, Paste, Cut, dan Klik Kanan</strong> telah di-nonaktifkan secara otomatis.</li>
+                        <li>Batas toleransi pelanggaran tab: <strong>Maksimal 3 kali</strong> sebelum ujian otomatis dikirim secara paksa.</li>
+                    </ul>
+                </div>
+
+                <!-- Identity Form -->
+                <div class="space-y-3 text-left">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Nama Lengkap Siswa:</label>
+                        <input type="text" id="student-name" placeholder="Masukkan nama lengkap..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Kelas / Rombel:</label>
+                        <input type="text" id="student-class" placeholder="Contoh: X TKL 1 / X RPL 2" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <button onclick="startExam()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-2">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i> Mulai Kerjakan Uji Kompetensi Sekarang
+                </button>
+            </div>
+        </section>
+
+
+        <!-- TAB 3: UJI KOMPETENSI ACTIVE EXAM (Anti-Cheat Mode) -->
+        <section id="tab-quiz-active" class="hidden no-select space-y-6">
+            <!-- Exam Header Bar -->
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4 sticky top-20 z-30 shadow-xl">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-lg">
+                        <i data-lucide="lock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div id="display-student-info" class="font-bold text-white text-sm">Siswa: -</div>
+                        <div class="text-xs text-slate-400">Uji Kompetensi Berlangsung</div>
+                    </div>
+                </div>
+
+                <!-- Anti-Cheat Status & Timer -->
+                <div class="flex items-center gap-4">
+                    <div class="bg-rose-500/10 border border-rose-500/20 px-3 py-1.5 rounded-lg text-xs font-medium text-rose-400 flex items-center gap-1.5">
+                        <i data-lucide="shield-alert" class="w-4 h-4"></i> Pelanggaran: <span id="cheat-count" class="font-bold">0</span>/3
+                    </div>
+                    <div class="bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-lg text-xs font-medium text-blue-400 flex items-center gap-1.5">
+                        <i data-lucide="clock" class="w-4 h-4"></i> Sisa Waktu: <span id="quiz-timer" class="font-mono font-bold">45:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Layout (Question + Navigator) -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- Question Main Card -->
+                <div class="lg:col-span-3 bg-slate-800 border border-slate-700 rounded-2xl p-6 sm:p-8 space-y-6 flex flex-col justify-between min-h-[420px]">
+                    <div>
+                        <div class="flex justify-between items-center pb-4 border-b border-slate-700">
+                            <span id="q-number" class="text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">Soal #1</span>
+                            <span id="q-category" class="text-xs text-slate-400">Kategori: Struktur Data</span>
+                        </div>
+
+                        <!-- Question Text -->
+                        <div id="q-text" class="text-white font-medium text-base sm:text-lg mt-4 leading-relaxed">
+                            -- Memuat Soal --
+                        </div>
+
+                        <!-- Options List (A-E) -->
+                        <div id="q-options" class="mt-6 space-y-3">
+                            <!-- Dynamic Options Rendered Here -->
+                        </div>
+                    </div>
+
+                    <!-- Next/Prev Buttons -->
+                    <div class="flex justify-between items-center pt-6 border-t border-slate-700">
+                        <button onclick="navigateQuiz(-1)" id="btn-prev-q" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold rounded-lg transition disabled:opacity-50">
+                            <i data-lucide="chevron-left" class="w-4 h-4 inline"></i> Sebelumnya
+                        </button>
+                        <button onclick="navigateQuiz(1)" id="btn-next-q" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg transition shadow-lg shadow-blue-600/30">
+                            Berikutnya <i data-lucide="chevron-right" class="w-4 h-4 inline"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Number Grid Navigator -->
+                <div class="lg:col-span-1 bg-slate-800 border border-slate-700 rounded-2xl p-6 space-y-4">
+                    <h4 class="font-bold text-white text-sm pb-2 border-b border-slate-700">Navigasi Soal</h4>
+                    <div id="quiz-grid" class="grid grid-cols-5 gap-2">
+                        <!-- 25 Number Buttons generated via JS -->
+                    </div>
+                    <button onclick="confirmFinishExam()" class="w-full mt-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-600/30 transition">
+                        Selesaikan & Kirim Jawaban
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TAB 4: QUIZ RESULT -->
+        <section id="tab-quiz-result" class="hidden max-w-2xl mx-auto py-8">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 text-center space-y-6 shadow-2xl">
+                <div class="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
+                    <i data-lucide="award" class="w-10 h-10"></i>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Hasil Uji Kompetensi</h2>
+                    <p id="result-student-name" class="text-slate-400 text-sm mt-1">Nama Siswa - Kelas</p>
+                </div>
+
+                <!-- Big Score Box -->
+                <div class="bg-slate-900 border border-slate-700 p-6 rounded-2xl max-w-xs mx-auto">
+                    <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Nilai Akhir Anda</div>
+                    <div id="final-score" class="text-5xl font-extrabold text-blue-400 mt-2 font-mono">0</div>
+                    <div id="score-predicate" class="text-xs font-semibold text-emerald-400 mt-2">Sangat Baik</div>
+                </div>
+
+                <!-- Details Breakdown -->
+                <div class="grid grid-cols-3 gap-3 text-xs">
+                    <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700">
+                        <span class="text-slate-400 block">Benar</span>
+                        <span id="stat-correct" class="text-emerald-400 font-bold text-lg">0</span>
+                    </div>
+                    <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700">
+                        <span class="text-slate-400 block">Salah</span>
+                        <span id="stat-wrong" class="text-rose-400 font-bold text-lg">0</span>
+                    </div>
+                    <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-700">
+                        <span class="text-slate-400 block">Pelanggaran Tab</span>
+                        <span id="stat-cheats" class="text-amber-400 font-bold text-lg">0</span>
+                    </div>
+                </div>
+
+                <button onclick="resetExam()" class="px-6 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs rounded-xl transition">
+                    Kembali ke Modul Pembelajaran
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- CUSTOM MODAL DIALOG (Replaces Alert) -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+            <div class="flex items-center space-x-3 text-amber-400">
+                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                <h3 id="modal-title" class="font-bold text-lg text-white">Peringatan Ujian</h3>
+            </div>
+            <p id="modal-msg" class="text-sm text-slate-300 leading-relaxed">Pesan peringatan akan muncul di sini.</p>
+            <div class="pt-2 text-right">
+                <button onclick="closeModal()" class="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-lg transition">Saya Mengerti</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT CORE LOGIC -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // -------------------------------------------------------------
+        // 1. NAVIGATION & TOPIC SWITCHING LOGIC
+        // -------------------------------------------------------------
+        function switchTab(tabId) {
+            if (quizActive && tabId !== 'quiz-active') {
+                showModal("Ujian Sedang Berlangsung!", "Anda tidak dapat berpindah modul materi saat sedang mengerjakan Uji Kompetensi.");
+                return;
+            }
+
+            ['materi', 'quiz-intro', 'quiz-active', 'quiz-result'].forEach(id => {
+                const el = document.getElementById(`tab-${id}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+            // Toggle active state in top bar buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'shadow');
+                btn.classList.add('text-slate-400');
+            });
+
+            if (tabId === 'materi') {
+                document.getElementById('nav-materi').classList.add('bg-blue-600', 'text-white', 'shadow');
+            } else if (tabId.startsWith('quiz')) {
+                document.getElementById('nav-quiz').classList.add('bg-blue-600', 'text-white', 'shadow');
+            }
+        }
+
+        function showTopic(topicKey) {
+            document.querySelectorAll('.topic-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`content-${topicKey}`).classList.remove('hidden');
+
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'bg-blue-500/10');
+                btn.classList.add('border-slate-700', 'bg-slate-800/50');
+            });
+
+            const activeBtn = document.getElementById(`btn-topic-${topicKey}`);
+            activeBtn.classList.remove('border-slate-700', 'bg-slate-800/50');
+            activeBtn.classList.add('border-blue-500', 'bg-blue-500/10');
+        }
+
+
+        // -------------------------------------------------------------
+        // 2. INTERACTIVE SIMULATOR: STACK & QUEUE
+        // -------------------------------------------------------------
+        let simMode = 'stack'; // 'stack' or 'queue'
+        let simData = ['A', 'B', 'C'];
+
+        function setSimMode(mode) {
+            simMode = mode;
+            document.getElementById('mode-stack').className = mode === 'stack' ? 'px-3 py-1 text-xs rounded-lg bg-blue-600 text-white font-semibold' : 'px-3 py-1 text-xs rounded-lg bg-slate-700 text-slate-300 font-semibold';
+            document.getElementById('mode-queue').className = mode === 'queue' ? 'px-3 py-1 text-xs rounded-lg bg-blue-600 text-white font-semibold' : 'px-3 py-1 text-xs rounded-lg bg-slate-700 text-slate-300 font-semibold';
+            
+            const infoText = mode === 'stack' 
+                ? 'Elemen baru ditambahkan ke **Top/Atas** pada Stack, dan diambil dari **Top/Atas** (LIFO).'
+                : 'Elemen baru ditambahkan di **Belakang (Rear)** pada Queue, dan diambil dari **Depan (Front)** (FIFO).';
+            document.getElementById('sim-info').querySelector('span').innerText = infoText;
+
+            renderSim();
+        }
+
+        function renderSim() {
+            const container = document.getElementById('sim-container');
+            container.innerHTML = '';
+
+            if (simData.length === 0) {
+                container.innerHTML = '<span class="text-slate-500 text-xs italic">Struktur Data Kosong</span>';
+                return;
+            }
+
+            simData.forEach((item, idx) => {
+                const box = document.createElement('div');
+                box.className = 'w-12 h-12 bg-blue-600 text-white border-2 border-blue-400 font-bold font-mono rounded-xl flex flex-col items-center justify-center text-sm shadow-lg transform transition-all duration-300 animate-bounce-short';
+                box.innerHTML = `<span>${item}</span><span class="text-[9px] text-blue-200 font-sans">${idx}</span>`;
+                container.appendChild(box);
+            });
+        }
+
+        function pushSimData() {
+            const input = document.getElementById('sim-input');
+            const val = input.value.trim().toUpperCase() || 'X';
+            if (simData.length >= 7) {
+                showModal("Kapasitas Penuh", "Simulasi dibatasi maksimal 7 elemen agar tampilan rapi.");
+                return;
+            }
+            simData.push(val);
+            input.value = '';
+            renderSim();
+        }
+
+        function popSimData() {
+            if (simData.length === 0) {
+                showModal("Underflow Error", "Struktur data sudah kosong!");
+                return;
+            }
+            if (simMode === 'stack') {
+                simData.pop(); // LIFO
+            } else {
+                simData.shift(); // FIFO
+            }
+            renderSim();
+        }
+
+
+        // -------------------------------------------------------------
+        // 3. INTERACTIVE BUBBLE SORT VISUALIZER
+        // -------------------------------------------------------------
+        let sortArray = [40, 70, 20, 90, 50, 10];
+
+        function renderSortBars() {
+            const container = document.getElementById('sort-bars');
+            container.innerHTML = '';
+            sortArray.forEach(val => {
+                const bar = document.createElement('div');
+                bar.style.height = `${val}%`;
+                bar.className = 'w-10 bg-emerald-500 rounded-t-lg transition-all duration-300 flex items-end justify-center pb-2 text-[10px] font-bold text-slate-900 shadow-md';
+                bar.innerText = val;
+                container.appendChild(bar);
+            });
+        }
+
+        function generateRandomArray() {
+            sortArray = Array.from({length: 6}, () => Math.floor(Math.random() * 80) + 10);
+            renderSortBars();
+        }
+
+        async function runBubbleSort() {
+            const btn = document.getElementById('btn-run-sort');
+            btn.disabled = true;
+            btn.innerText = "Mengurutkan...";
+
+            let n = sortArray.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (sortArray[j] > sortArray[j + 1]) {
+                        // Swap
+                        let temp = sortArray[j];
+                        sortArray[j] = sortArray[j + 1];
+                        sortArray[j + 1] = temp;
+                        renderSortBars();
+                        await new Promise(r => setTimeout(r, 400));
+                    }
+                }
+            }
+            btn.disabled = false;
+            btn.innerText = "Jalankan Sorting";
+        }
+
+
+        // -------------------------------------------------------------
+        // 4. VON NEUMANN CYCLE SIMULATION
+        // -------------------------------------------------------------
+        let fdeStep = 0;
+        const fdeStepsText = [
+            "1. Fetch: CPU mengambil instruksi program dari Memori Utama (RAM).",
+            "2. Decode: Control Unit (CU) menerjemahkan instruksi yang diterima.",
+            "3. Execute: Arithmetic Logic Unit (ALU) mengeksekusi operasi & menyimpan hasil ke Register/RAM."
+        ];
+
+        function nextFdeStep() {
+            const statusEl = document.getElementById('fde-status');
+            const cpuBox = document.getElementById('cpu-box');
+            const ramBox = document.getElementById('ram-box');
+            const cuUnit = document.getElementById('unit-cu');
+            const aluUnit = document.getElementById('unit-alu');
+
+            // Reset highlights
+            cpuBox.classList.remove('border-emerald-400');
+            ramBox.classList.remove('border-blue-400');
+            cuUnit.classList.remove('bg-purple-600');
+            aluUnit.classList.remove('bg-purple-600');
+
+            if (fdeStep === 0) {
+                // Fetch
+                ramBox.classList.add('border-blue-400');
+                statusEl.innerHTML = `Status Siklus: <span class="font-mono text-emerald-400 font-bold">${fdeStepsText[0]}</span>`;
+                fdeStep = 1;
+            } else if (fdeStep === 1) {
+                // Decode
+                cuUnit.classList.add('bg-purple-600');
+                statusEl.innerHTML = `Status Siklus: <span class="font-mono text-amber-400 font-bold">${fdeStepsText[1]}</span>`;
+                fdeStep = 2;
+            } else {
+                // Execute
+                aluUnit.classList.add('bg-purple-600');
+                statusEl.innerHTML = `Status Siklus: <span class="font-mono text-purple-400 font-bold">${fdeStepsText[2]}</span>`;
+                fdeStep = 0;
+            }
+        }
+
+
+        // -------------------------------------------------------------
+        // 5. UJI KOMPETENSI ENGINE & 25 QUESTION BANK (Opsi A-E)
+        // -------------------------------------------------------------
+        const questions = [
+            // Struktur Data (1-7)
+            {
+                q: "Struktur data linier yang menerapkan prinsip LIFO (Last In First Out) dalam pengoperasiannya adalah...",
+                options: ["A. Queue", "B. Stack", "C. Array", "D. Tree", "E. Graph"],
+                answer: 1,
+                cat: "Struktur Data"
+            },
+            {
+                q: "Elemen pertama pada sebuah Array dengan panjang 10 elemen diakses menggunakan indeks ke-...",
+                options: ["A. -1", "B. 0", "C. 1", "D. 10", "E. 9"],
+                answer: 1,
+                cat: "Struktur Data"
+            },
+            {
+                q: "Pengambilan dokumen dari antrean printer yang memproses dokumen yang masuk pertama kali merupakan penerapan konsep...",
+                options: ["A. Stack (LIFO)", "B. Queue (FIFO)", "C. Binary Tree", "D. Hash Table", "E. Sorting Table"],
+                answer: 1,
+                cat: "Struktur Data"
+            },
+            {
+                q: "Operasi untuk menambahkan elemen baru ke dalam tumpukan (Stack) disebut dengan istilah...",
+                options: ["A. Pop", "B. Push", "C. Enqueue", "D. Dequeue", "E. Insert"],
+                answer: 1,
+                cat: "Struktur Data"
+            },
+            {
+                q: "Operasi untuk mengeluarkan/menghapus elemen terdepan dari sebuah Antrean (Queue) disebut...",
+                options: ["A. Dequeue", "B. Enqueue", "C. Push", "D. Pop", "E. Peek"],
+                answer: 0,
+                cat: "Struktur Data"
+            },
+            {
+                q: "Perbedaan utama antara Array dan Linked List terletak pada...",
+                options: [
+                    "A. Array tidak memiliki indeks, sedangkan List memiliki indeks",
+                    "B. Elemen Array disimpan berurutan kontinu di memori, sedangkan List menggunakan pointer acuan",
+                    "C. Array bersifat dinamis, sedangkan List bersifat statis fixed",
+                    "D. Array hanya bisa menyimpan karakter teks",
+                    "E. List tidak bisa menambah data secara fleksibel"
+                ],
+                answer: 1,
+                cat: "Struktur Data"
+            },
+            {
+                q: "Fitur 'Undo' dan 'Redo' pada aplikasi pengolah kata menggunakan prinsip kerja struktur data...",
+                options: ["A. Queue", "B. Stack", "C. Graph", "D. Array 2D", "E. Matrix"],
+                answer: 1,
+                cat: "Struktur Data"
+            },
+
+            // Algoritma & Pseudocode (8-14)
+            {
+                q: "Pernyataan yang tepat mengenai Pseudocode adalah...",
+                options: [
+                    "A. Bahasa pemrograman resmi yang dapat langsung dieksekusi oleh mesin CPU",
+                    "B. Kode gambar yang dibuat dengan perangkat lunak grafis",
+                    "C. Deskripsi algoritma berstruktur informal yang mirip bahasa pemrograman untuk dibaca manusia",
+                    "D. Diagram alir yang menggunakan simbol geometris baku",
+                    "E. Sistem operasi berbasis teks"
+                ],
+                answer: 2,
+                cat: "Algoritma"
+            },
+            {
+                q: "Algoritma pengurutan yang bekerja dengan membandingkan pasangan elemen yang berdekatan dan menukarnya jika urutannya salah adalah...",
+                options: ["A. Quick Sort", "B. Merge Sort", "C. Bubble Sort", "D. Binary Search", "E. Linear Search"],
+                answer: 2,
+                cat: "Algoritma"
+            },
+            {
+                q: "Algoritma pencarian yang membutuhkan data dalam kondisi sudah terurut terlebih dahulu sebelum diproses adalah...",
+                options: ["A. Linear Search", "B. Binary Search", "C. Random Search", "D. Sequential Search", "E. Bubble Search"],
+                answer: 1,
+                cat: "Algoritma"
+            },
+            {
+                q: "Perhatikan pseudocode berikut:\nFOR i = 1 TO 5 DO\n   PRINT (i * 2)\nENDFOR\nKeluaran (output) dari program di atas adalah...",
+                options: ["A. 1 2 3 4 5", "B. 2 4 6 8 10", "C. 2 2 2 2 2", "D. 0 2 4 6 8", "E. 10 8 6 4 2"],
+                answer: 1,
+                cat: "Algoritma"
+            },
+            {
+                q: "Simbol belah ketupat pada diagram alir (Flowchart) digunakan untuk merepresentasikan...",
+                options: ["A. Input / Output data", "B. Awal / Akhir program", "C. Keputusan / Percabangan (Decision)", "D. Proses perhitungan", "E. Alur panah data"],
+                answer: 2,
+                cat: "Algoritma"
+            },
+            {
+                q: "Struktur kontrol dalam pseudocode yang digunakan untuk melakukan eksekusi berulang selama kondisi tertentu bernilai TRUE adalah...",
+                options: ["A. IF - ELSE", "B. SWITCH - CASE", "C. WHILE - DO", "D. BREAK", "E. DEFINE"],
+                answer: 2,
+                cat: "Algoritma"
+            },
+            {
+                q: "Tingkat efisiensi atau kompleksitas waktu suatu algoritma umumnya diukur dan dinotasikan menggunakan bentuk...",
+                options: ["A. Big-O Notation", "B. Hexadecimal Code", "C. ASCII Code", "D. Binary Notation", "E. Logic Gate"],
+                answer: 0,
+                cat: "Algoritma"
+            },
+
+            // Von Neumann (15-20)
+            {
+                q: "Komponen dalam CPU Von Neumann yang bertugas melakukan perhitungan matematika dasar dan operasi logika adalah...",
+                options: ["A. Control Unit (CU)", "B. Arithmetic Logic Unit (ALU)", "C. Register PC", "D. RAM", "E. Bus Data"],
+                answer: 1,
+                cat: "Von Neumann"
+            },
+            {
+                q: "Urutan siklus instruksi dasar pada arsitektur mesin Von Neumann yang benar adalah...",
+                options: [
+                    "A. Decode -> Execute -> Fetch",
+                    "B. Execute -> Fetch -> Decode",
+                    "C. Fetch -> Decode -> Execute",
+                    "D. Store -> Fetch -> Decode",
+                    "E. Compile -> Run -> Stop"
+                ],
+                answer: 2,
+                cat: "Von Neumann"
+            },
+            {
+                q: "Komponen CPU yang bertugas mengambil instruksi dari RAM, menerjemahkannya, serta mengatur lalu lintas sinyal kontrol adalah...",
+                options: ["A. ALU", "B. Control Unit (CU)", "C. Harddisk", "D. Cache Memory", "E. Input Device"],
+                answer: 1,
+                cat: "Von Neumann"
+            },
+            {
+                q: "Register khusus pada CPU yang berfungsi menyimpan alamat memori dari instruksi berikutnya yang akan dieksekusi adalah...",
+                options: ["A. Program Counter (PC)", "B. Accumulator (ACC)", "C. Memory Data Register (MDR)", "D. Instruction Register (IR)", "E. Stack Pointer"],
+                answer: 0,
+                cat: "Von Neumann"
+            },
+            {
+                q: "Mengapa RAM disebut bersifat 'Volatile'?",
+                options: [
+                    "A. Data tetap tersimpan meskipun listrik dimatikan",
+                    "B. Data akan hilang secara otomatis jika aliran listrik terputus/mati",
+                    "C. Kecepatan baca tulisnya sangat lambat",
+                    "D. Hanya bisa dibaca dan tidak dapat ditulis",
+                    "E. Kapasitas fisiknya tidak terbatas"
+                ],
+                answer: 1,
+                cat: "Von Neumann"
+            },
+            {
+                q: "Bus dalam komputer yang khusus membawa alamat lokasi memori yang ingin diakses oleh CPU adalah...",
+                options: ["A. Data Bus", "B. Control Bus", "C. Address Bus", "D. System Bus", "E. USB"],
+                answer: 2,
+                cat: "Von Neumann"
+            },
+
+            // Sistem Operasi (21-25)
+            {
+                q: "Salah satu fungsi utama Sistem Operasi dalam mengelola memori utama (RAM) adalah...",
+                options: [
+                    "A. Mencetak dokumen ke mesin printer secara fisik",
+                    "B. Melacak alokasi bagian memori yang sedang digunakan maupun yang masih bebas",
+                    "C. Mengedit kode sumber program pascal",
+                    "D. Mempercepat daya baterai laptop",
+                    "E. Menghapus virus komputer tanpa antivirus"
+                ],
+                answer: 1,
+                cat: "Sistem Operasi"
+            },
+            {
+                q: "Kondisi di mana dua atau lebih proses saling menunggu sumber daya yang dipegang oleh proses lain sehingga sistem tidak dapat berlanjut disebut...",
+                options: ["A. Multitasking", "B. Deadlock", "C. Thashing", "D. Paging", "E. Booting"],
+                answer: 1,
+                cat: "Sistem Operasi"
+            },
+            {
+                q: "Kemampuan sistem operasi untuk menjalankan beberapa proses/aplikasi secara bersamaan dalam satu waktu disebut...",
+                options: ["A. Multitasking", "B. Multiuser", "C. Multithreading", "D. Multiprocessing", "E. Multi-Core"],
+                answer: 0,
+                cat: "Sistem Operasi"
+            },
+            {
+                q: "Komponen paling inti (core) dari sebuah Sistem Operasi yang berinteraksi langsung dengan perangkat keras komputer adalah...",
+                options: ["A. Shell", "B. Kernel", "C. GUI", "D. Driver", "E. Compiler"],
+                answer: 1,
+                cat: "Sistem Operasi"
+            },
+            {
+                q: "Teknik dalam sistem operasi yang memanfaatkan sebagian ruang penyimpanan Sekunder (Harddisk/SSD) seolah-olah sebagai RAM tambahan disebut...",
+                options: ["A. Virtual Memory", "B. Cache Memory", "C. ROM", "D. Buffer", "E. Partition"],
+                answer: 0,
+                cat: "Sistem Operasi"
+            }
+        ];
+
+        let quizActive = false;
+        let currentQIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let cheatCount = 0;
+        let timerSeconds = 45 * 60;
+        let timerInterval = null;
+
+        function startExam() {
+            const name = document.getElementById('student-name').value.trim();
+            const cls = document.getElementById('student-class').value.trim();
+
+            if (!name || !cls) {
+                showModal("Data Belum Lengkap", "Silakan isi Nama Lengkap dan Kelas Anda sebelum memulai Uji Kompetensi.");
+                return;
+            }
+
+            document.getElementById('display-student-info').innerText = `${name} (${cls})`;
+            quizActive = true;
+            currentQIndex = 0;
+            cheatCount = 0;
+            document.getElementById('cheat-count').innerText = "0";
+
+            switchTab('quiz-active');
+            renderQuizGrid();
+            loadQuestion(0);
+            startTimer();
+
+            // Enable anti-cheat system
+            enableAntiCheat();
+        }
+
+        function renderQuizGrid() {
+            const grid = document.getElementById('quiz-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const btn = document.createElement('button');
+                btn.id = `q-grid-${i}`;
+                btn.onclick = () => loadQuestion(i);
+                btn.className = 'w-full py-2 text-xs font-bold rounded-lg border border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500';
+                btn.innerText = i + 1;
+                grid.appendChild(btn);
+            }
+        }
+
+        function loadQuestion(idx) {
+            currentQIndex = idx;
+            const q = questions[idx];
+
+            document.getElementById('q-number').innerText = `Soal #${idx + 1} dari ${questions.length}`;
+            document.getElementById('q-category').innerText = `Kategori: ${q.cat}`;
+            document.getElementById('q-text').innerText = q.q;
+
+            // Render Options
+            const optsContainer = document.getElementById('q-options');
+            optsContainer.innerHTML = '';
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[idx] === optIdx;
+                const optBtn = document.createElement('button');
+                optBtn.onclick = () => selectOption(optIdx);
+                optBtn.className = `w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition flex items-center justify-between ${
+                    isSelected 
+                    ? 'border-blue-500 bg-blue-500/10 text-white font-semibold shadow-md' 
+                    : 'border-slate-700 bg-slate-900/60 text-slate-300 hover:border-slate-600'
+                }`;
+                optBtn.innerHTML = `<span>${optText}</span> ${isSelected ? '<i data-lucide="check-circle-2" class="w-4 h-4 text-blue-400"></i>' : ''}`;
+                optsContainer.appendChild(optBtn);
+            });
+
+            // Update Grid Highlighting
+            for (let i = 0; i < questions.length; i++) {
+                const gridBtn = document.getElementById(`q-grid-${i}`);
+                if (!gridBtn) continue;
+
+                if (i === idx) {
+                    gridBtn.className = 'w-full py-2 text-xs font-bold rounded-lg border-2 border-blue-500 bg-blue-600 text-white shadow';
+                } else if (userAnswers[i] !== null) {
+                    gridBtn.className = 'w-full py-2 text-xs font-bold rounded-lg border border-emerald-500/50 bg-emerald-500/20 text-emerald-400';
+                } else {
+                    gridBtn.className = 'w-full py-2 text-xs font-bold rounded-lg border border-slate-700 bg-slate-900 text-slate-400 hover:border-slate-500';
+                }
+            }
+
+            document.getElementById('btn-prev-q').disabled = idx === 0;
+            document.getElementById('btn-next-q').innerText = idx === questions.length - 1 ? "Selesai" : "Berikutnya";
+            lucide.createIcons();
+        }
+
+        function selectOption(optIdx) {
+            userAnswers[currentQIndex] = optIdx;
+            loadQuestion(currentQIndex);
+        }
+
+        function navigateQuiz(dir) {
+            let target = currentQIndex + dir;
+            if (target >= 0 && target < questions.length) {
+                loadQuestion(target);
+            } else if (target >= questions.length) {
+                confirmFinishExam();
+            }
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                const m = Math.floor(timerSeconds / 60);
+                const s = timerSeconds % 60;
+                document.getElementById('quiz-timer').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam("Waktu Habis!");
+                }
+            }, 1000);
+        }
+
+
+        // -------------------------------------------------------------
+        // 6. FITUR ANTI-NYONTEK (ANTI-CHEATING SYSTEM)
+        // -------------------------------------------------------------
+        function enableAntiCheat() {
+            // Block context menu (Right Click)
+            document.addEventListener('contextmenu', blockEvent);
+
+            // Block copy/paste/cut keyboard shortcuts
+            document.addEventListener('copy', blockEvent);
+            document.addEventListener('cut', blockEvent);
+            document.addEventListener('paste', blockEvent);
+
+            // Tab switch detection (Visibility Change)
+            window.addEventListener('blur', handleTabLeave);
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+        }
+
+        function disableAntiCheat() {
+            document.removeEventListener('contextmenu', blockEvent);
+            document.removeEventListener('copy', blockEvent);
+            document.removeEventListener('cut', blockEvent);
+            document.removeEventListener('paste', blockEvent);
+            window.removeEventListener('blur', handleTabLeave);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        }
+
+        function blockEvent(e) {
+            if (quizActive) {
+                e.preventDefault();
+                showModal("Aksi Dilarang!", "Sistem Anti-Nyontek aktif. Aksi Copy/Paste/Klik Kanan telah diblokir.");
+            }
+        }
+
+        function handleTabLeave() {
+            if (quizActive) recordViolation();
+        }
+
+        function handleVisibilityChange() {
+            if (quizActive && document.hidden) recordViolation();
+        }
+
+        function recordViolation() {
+            cheatCount++;
+            document.getElementById('cheat-count').innerText = cheatCount;
+
+            if (cheatCount >= 3) {
+                finishExam("Ujian Dibatalkan Otomatis! Anda telah berpindah tab sebanyak 3 kali.");
+            } else {
+                showModal("Peringatan Pelanggaran!", `Anda terdeteksi meninggalkan halaman ujian/berpindah tab! (Pelanggaran ke-${cheatCount}/3). Jika mencapai 3 kali, ujian akan dikirim paksa!`);
+            }
+        }
+
+
+        // -------------------------------------------------------------
+        // 7. FINISH & EVALUATION LOGIC
+        // -------------------------------------------------------------
+        function confirmFinishExam() {
+            const unanswered = userAnswers.filter(a => a === null).length;
+            if (unanswered > 0) {
+                showModal("Soal Belum Selesai", `Masih terdapat ${unanswered} soal yang belum Anda jawab. Silakan periksa kembali sebelum mengirim.`);
+                return;
+            }
+            finishExam("Selesai");
+        }
+
+        function finishExam(reason) {
+            quizActive = false;
+            clearInterval(timerInterval);
+            disableAntiCheat();
+
+            // Calculate Score
+            let correctCount = 0;
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.answer) correctCount++;
+            });
+
+            const totalScore = Math.round((correctCount / questions.length) * 100);
+
+            // Populate Results Screen
+            const name = document.getElementById('student-name').value;
+            const cls = document.getElementById('student-class').value;
+            document.getElementById('result-student-name').innerText = `${name} - ${cls}`;
+            document.getElementById('final-score').innerText = totalScore;
+            document.getElementById('stat-correct').innerText = correctCount;
+            document.getElementById('stat-wrong').innerText = questions.length - correctCount;
+            document.getElementById('stat-cheats').innerText = cheatCount;
+
+            let predicate = "Kurang (Perlu Belajar Lagi)";
+            if (totalScore >= 85) predicate = "Sangat Baik (Sempurna!)";
+            else if (totalScore >= 75) predicate = "Baik (Lulus KKM)";
+            else if (totalScore >= 60) predicate = "Cukup (Perbaikan)";
+
+            document.getElementById('score-predicate').innerText = predicate;
+
+            if (reason && reason !== "Selesai") {
+                showModal("Status Ujian", reason);
+            }
+
+            switchTab('quiz-result');
+        }
+
+        function resetExam() {
+            quizActive = false;
+            userAnswers = new Array(questions.length).fill(null);
+            switchTab('materi');
+        }
+
+
+        // -------------------------------------------------------------
+        // 8. MODAL DIALOG UTILITY
+        // -------------------------------------------------------------
+        function showModal(title, msg) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-msg').innerText = msg;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // Initialize default views
+        window.onload = function() {
+            renderSim();
+            generateRandomArray();
+        };
+    </script>
+</body>
+</html>
